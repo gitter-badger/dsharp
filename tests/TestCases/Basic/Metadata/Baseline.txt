@@ -2003,6 +2003,18 @@ Types:
                 Generated Name: Name
                 ReadOnly: True
                 Abstract: False
+            Field: Namespace
+                AssociatedType: String
+                Visibility: Public
+                Generated Name: $namespace
+            Field: FullName
+                AssociatedType: String
+                Visibility: Public
+                Generated Name: $fullName
+            Field: Assembly
+                AssociatedType: Assembly
+                Visibility: Public
+                Generated Name: $assembly
             Field: Prototype
                 AssociatedType: Dictionary
                 Visibility: Public
@@ -2072,6 +2084,35 @@ Types:
                 AssociatedType: String
                 Visibility: Public
                 Generated Name: toString
+                Abstract: False
+        
+    Class: Version
+        Application Type: False
+        Public: True
+        Generated Name: Version
+        Extension Methods: False
+        BaseClass: Object
+        Members:
+            Field: Major
+                AssociatedType: Int32
+                Visibility: Public
+                Generated Name: Major
+            Field: Minor
+                AssociatedType: Int32
+                Visibility: Public
+                Generated Name: Minor
+            Field: Build
+                AssociatedType: Int32
+                Visibility: Public
+                Generated Name: Build
+            Field: Revision
+                AssociatedType: Int32
+                Visibility: Public
+                Generated Name: Revision
+            Method: Parse
+                AssociatedType: Version
+                Visibility: Public, Static
+                Generated Name: Parse
                 Abstract: False
         
     Class: Void
@@ -3606,6 +3647,47 @@ Types:
                 Generated Name: gs
         
 
+Namespace: System.Reflection
+HasApplicationTypes: False
+Types:
+    Class: Assembly
+        Application Type: False
+        Public: True
+        Generated Name: Assembly
+        Extension Methods: False
+        BaseClass: Object
+        Members:
+            Field: FullName
+                AssociatedType: String
+                Visibility: Public
+                Generated Name: FullName
+            Field: ExportedTypes
+                AssociatedType: Array
+                Visibility: Public
+                Generated Name: ExportedTypes
+            Method: GetName
+                AssociatedType: AssemblyName
+                Visibility: Public
+                Generated Name: getName
+                Abstract: False
+        
+    Class: AssemblyName
+        Application Type: False
+        Public: True
+        Generated Name: AssemblyName
+        Extension Methods: False
+        BaseClass: Object
+        Members:
+            Field: Name
+                AssociatedType: String
+                Visibility: Public
+                Generated Name: Name
+            Field: Version
+                AssociatedType: Version
+                Visibility: Public
+                Generated Name: Version
+        
+
 Namespace: System.Serialization
 HasApplicationTypes: False
 Types:
@@ -4022,17 +4104,19 @@ define('test', ['ss'], function(ss) {
   };
 
 
-  var $exports = ss.module('test',
+  var ns_BasicTests = "BasicTests";
+
+  var $exports = ss.module('test', '',
     {
-      IFoo: ss.defineInterface(IFoo),
+      IFoo: ss.defineInterface(IFoo, [], ns_BasicTests),
       Point: Point,
-      AppHelper: ss.defineClass(AppHelper, AppHelper$, [], null)
+      AppHelper: ss.defineClass(AppHelper, AppHelper$, [], null, [], ns_BasicTests)
     },
     {
       AppFlags: AppFlags,
       Mode: Mode,
-      IApp: ss.defineInterface(IApp),
-      App: ss.defineClass(App, App$, [], null, [IApp])
+      IApp: ss.defineInterface(IApp, [], ns_BasicTests),
+      App: ss.defineClass(App, App$, [], null, [IApp], ns_BasicTests)
     });
 
 
